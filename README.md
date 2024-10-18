@@ -1,47 +1,35 @@
 # SAR Ship Classification with Super-Resolution
 
-This repository contains code for enhancing SAR ship classification through super-resolution techniques. We compare traditional interpolation methods with deep learning-based super-resolution (SR) models and evaluate their impact on image quality and classification performance using VGG and MSVGG models.
+This repository focuses on applying and evaluating super-resolution techniques for Synthetic Aperture Radar (SAR) ship classification. Both traditional interpolation methods and deep learning-based super-resolution models are used, and their impact on image quality and classification performance is explored.
 
 ## Repository Structure
 
-The repository consists of three main files:
+The repository consists of the following key files:
 
-1. **`code.py`**  
-   This script trains the ship classification models using super-resolved images. It contains the implementation of two models:
-   - **VGG Model**: A basic VGG network for classification.
-   - **MSVGG Model**: A multi-scale VGG network designed for improved classification performance.
-   
-   The script handles training, validation, and evaluation of these models on super-resolved images.
+1. **`sar_super_resolution.ipynb`**  
+   A Jupyter notebook that performs super-resolution using traditional interpolation methods (bilinear, bicubic, Lanczos, nearest-neighbor). It also calculates image quality metrics such as PSNR and SSIM, and saves the super-resolved images for further use in classification.
 
-2. **`resolution.py`**  
-   This script applies various super-resolution techniques to low-resolution images. It includes:
-   - **Deep learning models** (EDSR, RCAN, CARN) for super-resolution.
-   - **Traditional interpolation methods** (bilinear, bicubic, Lanczos, nearest-neighbor).
-   
-   The output is super-resolved images, saved for further use in training and testing the classification models.
+2. **`dl_res.py`**  
+   This script performs super-resolution using deep learning-based models (EDSR, RCAN, CARN). It calculates image quality scores (PSNR, SSIM) and stores the super-resolved images for later use in the classification tasks.
 
-3. **`image_quality.py`**  
-   This script calculates image quality metrics to evaluate the super-resolved images. It computes:
-   - **Peak Signal-to-Noise Ratio (PSNR)**
-   - **Structural Similarity Index (SSIM)**  
-   
-   Quality is assessed for both 2x and 4x resolution images, providing a comparison of the performance of different SR methods.
+3. **`test_resolution.py`**  
+   This script evaluates the classification performance of two deep learning models (VGG and MSVGG) using the super-resolved images. It calculates accuracy, precision, recall, and F1 score to assess model performance on upscaled images.
 
 ## Super-Resolution Methods
 
 The repository includes the following super-resolution methods:
-- **Traditional Interpolation**: Bilinear, Bicubic, Lanczos, Nearest-Neighbor.
-- **Deep Learning Models**: EDSR, RCAN, CARN.
+- **Traditional Interpolation**: Bilinear, Bicubic, Lanczos, Nearest-Neighbor (implemented in `sar_super_resolution.ipynb`).
+- **Deep Learning Models**: EDSR, RCAN, CARN (implemented in `dl_res.py`).
 
 ## Image Quality Metrics
 
-The `image_quality.py` script measures the performance of SR methods using:
-- **PSNR (Peak Signal-to-Noise Ratio)**: Measures the ratio between the maximum possible signal and the noise affecting the image.
-- **SSIM (Structural Similarity Index)**: Evaluates the perceived quality of images by comparing structural information.
+The following metrics are used to evaluate the quality of super-resolved images:
+- **PSNR (Peak Signal-to-Noise Ratio)**: Measures the clarity of the image by comparing the maximum possible signal to the noise affecting the image.
+- **SSIM (Structural Similarity Index Measure)**: Assesses the perceived image quality by comparing structural information between the original and super-resolved images.
 
 ## Installation
 
-To run the code, clone this repository and install the required dependencies:
+To run the code, clone the repository and install the required dependencies:
 
 ```bash
 git clone https://github.com/cm-awais/SAR_Super_resolution.git
@@ -51,39 +39,31 @@ pip install -r requirements.txt
 
 ## Usage
 
-1. **Super-Resolution**  
-   To perform super-resolution on images, use the `resolution.py` script:
+1. **Super-Resolution with Interpolation**  
+   Run the Jupyter notebook `sar_super_resolution.ipynb` to apply interpolation-based super-resolution and calculate image quality scores:
 
    ```bash
-   python resolution.py --input_dir /path/to/images --output_dir /path/to/save --method edsr
+   jupyter notebook sar_super_resolution.ipynb
    ```
 
-   Replace `edsr` with the desired method (e.g., `bilinear`, `bicubic`, `lanczos`, `nearest-neighbor`, `rcan`, `carn`).
-
-2. **Train Models**  
-   Use `code.py` to train the models (VGG or MSVGG) on the super-resolved images:
+2. **Super-Resolution with Deep Learning**  
+   Run `dl_res.py` to perform super-resolution using deep learning models (EDSR, RCAN, CARN) and calculate image quality scores:
 
    ```bash
-   python code.py --train_dir /path/to/super-resolved-images --model vgg
+   python dl_res.py
    ```
 
-   Replace `vgg` with `msvgg` to use the multi-scale VGG model.
-
-3. **Image Quality Evaluation**  
-   To evaluate image quality, use `image_quality.py`:
+3. **Classification on Super-Resolved Images**  
+   Run `test_resolution.py` to evaluate the classification results on the super-resolved images using VGG and MSVGG models:
 
    ```bash
-   python image_quality.py --input_dir /path/to/super-resolved-images --scale 2x
+   python test_resolution.py
    ```
-
-   Adjust `--scale` for 2x or 4x super-resolution comparisons.
 
 ## Results
 
-The study highlights that improvements in image quality (PSNR, SSIM) do not always correlate with better classification performance. Traditional methods such as Lanczos may outperform deep learning models in some cases, particularly when applied to a multi-scale VGG (MSVGG) model.
+This project highlights that while deep learning-based super-resolution models generally improve image quality, they don’t always guarantee better classification accuracy. Traditional interpolation methods may sometimes outperform deep learning models in specific scenarios, especially when using a multi-scale VGG (MSVGG) model.
 
 ## Contributing
 
 Feel free to open issues or pull requests if you encounter any problems or have suggestions for improvements.
-
----
