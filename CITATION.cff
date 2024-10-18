@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the following work."
+title: "SAR Ship Classification with Super-Resolution"
+authors:
+  - family-names: "Awais"
+    given-names: "Ch Muhammad"
+    orcid: "https://orcid.org/0009-0001-4589-4103"
+date-released: "2024-10-18"
+version: "1.0.0"
+url: "https://github.com/cm-awais/SAR_Super_resolution"
+// doi: "10.0000/zenodo.0000000" # Replace with your DOI if applicable
+abstract: >
+  This repository provides code for SAR ship classification using super-resolution techniques. It includes traditional interpolation methods and deep learning-based models for super-resolution, as well as classification models like VGG and MSVGG, with evaluation of image quality metrics.
